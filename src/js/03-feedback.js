@@ -7,7 +7,7 @@ formEl.addEventListener('submit', onFormSubmit);
 
 const FEEDBACK_FORM = 'feedback-form-state';
 
-const formData = JSON.parse(localStorage.getItem(FEEDBACK_FORM)) || {};
+let formData = JSON.parse(localStorage.getItem(FEEDBACK_FORM)) || {};
 updateForm();
 function onInputType(evt) {
   const inputName = evt.target.name;
@@ -30,12 +30,17 @@ function updateForm() {
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  const saveFormData = JSON.parse(localStorage.getItem(FEEDBACK_FORM));
+  const email = evt.currentTarget.email.value;
+  const message = evt.currentTarget.message.value;
+  const saveFormData = {
+    email,
+    message,
+  };
 
-  console.log(saveFormData.email);
-  console.log(saveFormData.message);
-  localStorage.clear();
+  console.log(saveFormData);
   formEl.reset();
+  localStorage.clear();
+  formData = {};
 }
 
 // Альтернатива для зберігання та читання з сховища==========================
